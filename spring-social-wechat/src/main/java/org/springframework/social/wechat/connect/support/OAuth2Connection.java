@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.social.wechat.connect;
+package org.springframework.social.wechat.connect.support;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -29,6 +29,7 @@ import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2ServiceProvider;
+import org.springframework.social.wechat.connect.WeChatServiceProvider;
 
 public class OAuth2Connection<A> extends AbstractConnection<A> {
 

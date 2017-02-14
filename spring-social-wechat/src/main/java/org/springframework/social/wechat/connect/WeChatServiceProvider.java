@@ -20,8 +20,15 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.wechat.api.WeChat;
 import org.springframework.social.wechat.api.impl.WeChatTemplate;
+import org.springframework.social.wechat.oauth2.WeChatOAuth2Template;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class WeChatServiceProvider extends AbstractOAuth2ServiceProvider<WeChat> {
+
+	private static final String AUTHORIZE_URL = "https://open.weixin.qq.com/connect/qrconnect";
+	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token";
 
 	public WeChatServiceProvider(OAuth2Operations oauth2Operations) {
 		super(oauth2Operations);
@@ -33,7 +40,7 @@ public class WeChatServiceProvider extends AbstractOAuth2ServiceProvider<WeChat>
 
 	private static OAuth2Template getOAuth2Template(String appId, String appSecret) {
 		OAuth2Template oAuth2Template = new WeChatOAuth2Template(appId, appSecret,
-				"https://open.weixin.qq.com/connect/qrconnect", "https://api.weixin.qq.com/sns/oauth2/access_token");
+				AUTHORIZE_URL, ACCESS_TOKEN_URL);
 		oAuth2Template.setUseParametersForClientAuthentication(true);
 		return oAuth2Template;
 	}

@@ -1,4 +1,4 @@
-package org.springframework.social.wechat.api;
+package org.springframework.social.wechat.oauth2;
 
 import org.springframework.social.oauth2.AccessGrant;
 

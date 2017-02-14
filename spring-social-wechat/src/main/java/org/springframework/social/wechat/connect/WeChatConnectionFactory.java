@@ -19,7 +19,8 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.wechat.api.WeChat;
-import org.springframework.social.wechat.api.WeChatAccessGrant;
+import org.springframework.social.wechat.connect.support.OAuth2Connection;
+import org.springframework.social.wechat.oauth2.WeChatAccessGrant;
 
 public class WeChatConnectionFactory extends OAuth2ConnectionFactory<WeChat> {
 
