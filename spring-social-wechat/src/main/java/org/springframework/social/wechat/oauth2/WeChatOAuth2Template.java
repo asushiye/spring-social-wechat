@@ -1,6 +1,7 @@
 package org.springframework.social.wechat.oauth2;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,19 @@ public class WeChatOAuth2Template extends OAuth2Template {
 
 	private String appid;
 	private String appsecret;
-	
+
 	public WeChatOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
 		super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+		try {
+			Field authorizeUrlField=OAuth2Template.class.getDeclaredField("authorizeUrl");
+			authorizeUrlField.setAccessible(true);
+			String authorizeUrlValue = (String) authorizeUrlField.get(this);
+			authorizeUrlField.set(this,authorizeUrlValue.replace("?client_id","?appid"));
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		this.appid = clientId;
 		this.appsecret=clientSecret;
 	}
@@ -63,26 +74,6 @@ public class WeChatOAuth2Template extends OAuth2Template {
 		return  restTemplate;
 	}
 
-	public String buildAuthorizeUrl(OAuth2Parameters parameters) {
-		return appendAppId(super.buildAuthorizeUrl(parameters));
-	}
-
-	public String buildAuthorizeUrl(GrantType grantType, OAuth2Parameters parameters) {
-		return appendAppId(super.buildAuthorizeUrl(grantType, parameters));
-	}
-
-	public String buildAuthenticateUrl(OAuth2Parameters parameters) {
-		return appendAppId(super.buildAuthenticateUrl(parameters));
-	}
-
-	public String buildAuthenticateUrl(GrantType grantType, OAuth2Parameters parameters) {
-		return appendAppId(super.buildAuthenticateUrl(grantType, parameters));
-	}
-
-
-	private String appendAppId(final String url) {
-		return url + "&appId=" + formEncode(appid);
-	}
 
 	private String formEncode(String data) {
 		try {
