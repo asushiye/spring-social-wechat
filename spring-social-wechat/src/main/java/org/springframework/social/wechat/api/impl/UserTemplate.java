@@ -29,8 +29,6 @@ public class UserTemplate implements UserOperations {
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.set("openid", openid);
-		params.set("access_token", accessToken);
-
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity entity = new HttpEntity(headers);
