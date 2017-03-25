@@ -16,8 +16,10 @@
 package org.springframework.social.wechat.connect;
 
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2ServiceProvider;
 import org.springframework.social.wechat.api.WeChat;
 import org.springframework.social.wechat.connect.support.OAuth2Connection;
 import org.springframework.social.wechat.oauth2.WeChatAccessGrant;
@@ -27,13 +29,27 @@ public class WeChatConnectionFactory extends OAuth2ConnectionFactory<WeChat> {
 	public WeChatConnectionFactory(String appId, String appSecret) {
 		super("wechat", new WeChatServiceProvider(appId, appSecret), new WeChatAdapter());
 	}
-
+	//The first execution of this
 	@Override
 	public Connection<WeChat> createConnection(AccessGrant grant) {
 		WeChatAccessGrant accessGrant = (WeChatAccessGrant) grant;
 		return new OAuth2Connection<WeChat>(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
 				accessGrant.getRefreshToken(), accessGrant.getExpireTime(), accessGrant.getOpenid(), 
 				(WeChatServiceProvider) getServiceProvider(), getApiAdapter());	
-	}	
-	
+	}
+	//The second execution of this
+	@Override
+	public Connection<WeChat> createConnection(ConnectionData data) {
+		return new OAuth2Connection<WeChat>(data, getOAuth2ServiceProvider(), getApiAdapter());
+	}
+
+	private OAuth2ServiceProvider<WeChat> getOAuth2ServiceProvider() {
+		return (OAuth2ServiceProvider<WeChat>) getServiceProvider();
+	}
+
+	@Override
+	protected String extractProviderUserId(AccessGrant accessGrant) {
+		WeChatAccessGrant grant = (WeChatAccessGrant) accessGrant;
+		return grant.getOpenid();
+	}
 }

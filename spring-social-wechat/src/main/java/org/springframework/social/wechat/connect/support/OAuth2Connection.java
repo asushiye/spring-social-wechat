@@ -81,6 +81,9 @@ public class OAuth2Connection<A> extends AbstractConnection<A> {
 	 */
 	public OAuth2Connection(ConnectionData data, OAuth2ServiceProvider<A> serviceProvider, ApiAdapter<A> apiAdapter) {
 		super(data, apiAdapter);
+		if(data instanceof WechatConnectionData){
+			this.openid=((WechatConnectionData)data).getOpenid();
+		}
 		this.serviceProvider = serviceProvider;
 		initAccessTokens(data.getAccessToken(), data.getRefreshToken(), data.getExpireTime());
 		initApi();
@@ -115,7 +118,7 @@ public class OAuth2Connection<A> extends AbstractConnection<A> {
 
 	public ConnectionData createData() {
 		synchronized (getMonitor()) {
-			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(), accessToken, null, refreshToken, expireTime);
+			return new WechatConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(), accessToken, null, refreshToken, expireTime,openid);
 		}
 	}
 

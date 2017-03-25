@@ -9,6 +9,7 @@ public class UserInfo {
 	private String country;
 	private String headimgurl;
 	private String unionid;
+	private String openid;
 	
 	public String getNickname() {
 		return nickname;
@@ -52,7 +53,12 @@ public class UserInfo {
 	public void setUnionid(String unionid) {
 		this.unionid = unionid;
 	}
-	
-	
 
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
 }

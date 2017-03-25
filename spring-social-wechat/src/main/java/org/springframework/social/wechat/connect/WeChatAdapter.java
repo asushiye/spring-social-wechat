@@ -44,7 +44,7 @@ public class WeChatAdapter implements ApiAdapter<WeChat> {
 
 	public UserProfile fetchUserProfile(WeChat weChat) {
 		UserInfo userInfo = weChat.userOperations().getUserInfo();
-		return new UserProfileBuilder().setName(userInfo.getNickname()).setUsername(userInfo.getNickname()).build();
+		return new UserProfileBuilder().setName(userInfo.getNickname()).setUsername(userInfo.getNickname()).setId(userInfo.getOpenid()).build();
 	}
 
 	public void updateStatus(WeChat weChat, String message) {
