@@ -44,7 +44,17 @@ public class WeChatAdapter implements ApiAdapter<WeChat> {
 
 	public UserProfile fetchUserProfile(WeChat weChat) {
 		UserInfo userInfo = weChat.userOperations().getUserInfo();
-		return new UserProfileBuilder().setName(userInfo.getNickname()).setUsername(userInfo.getNickname()).setId(userInfo.getOpenid()).build();
+		UserInfo userProfile =new UserInfo(userInfo.getOpenid(), userInfo.getNickname(),
+				userInfo.getNickname(),userInfo.getNickname(),null,userInfo.getNickname());
+		userProfile.setUnionid(userInfo.getUnionid());
+		userProfile.setSex(userInfo.getSex());
+		userProfile.setProvince(userInfo.getProvince());
+		userProfile.setCity(userInfo.getCity());
+		userProfile.setCountry(userInfo.getCountry());
+		userProfile.setHeadimgurl(userInfo.getHeadimgurl());
+		userProfile.setNickname(userInfo.getNickname());
+		userProfile.setOpenid(userInfo.getOpenid());
+		return userProfile;
 	}
 
 	public void updateStatus(WeChat weChat, String message) {

@@ -1,6 +1,8 @@
 package org.springframework.social.wechat.api;
 
-public class UserInfo {
+import org.springframework.social.connect.UserProfile;
+
+public class UserInfo  extends UserProfile{
 	
 	private String nickname;
 	private int sex;
@@ -10,7 +12,16 @@ public class UserInfo {
 	private String headimgurl;
 	private String unionid;
 	private String openid;
-	
+
+	public UserInfo(){
+		super(null, null, null, null, null, null);
+	}
+
+	public UserInfo(String id, String name, String firstName, String lastName, String email, String username) {
+		super(id, name, firstName, lastName, email, username);
+		this.openid=id;
+	}
+
 	public String getNickname() {
 		return nickname;
 	}
