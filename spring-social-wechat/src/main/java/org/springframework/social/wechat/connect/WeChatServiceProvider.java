@@ -30,6 +30,7 @@ public class WeChatServiceProvider extends AbstractOAuth2ServiceProvider<WeChat>
 	private static final String AUTHORIZE_URL = "https://open.weixin.qq.com/connect/qrconnect";
 
 	private static final String AUTHORIZE_PUBLIC_NUMBER_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";
+	private static final String AUTHENTICATE_PUBLIC_NUMBER_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";
 	private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token";
 
 	public WeChatServiceProvider(OAuth2Operations oauth2Operations) {
@@ -42,7 +43,7 @@ public class WeChatServiceProvider extends AbstractOAuth2ServiceProvider<WeChat>
 
 	private static OAuth2Template getOAuth2Template(String appId, String appSecret) {
 		OAuth2Template oAuth2Template = new WeChatOAuth2Template(appId, appSecret,
-				AUTHORIZE_PUBLIC_NUMBER_URL, ACCESS_TOKEN_URL);
+				AUTHORIZE_PUBLIC_NUMBER_URL,AUTHENTICATE_PUBLIC_NUMBER_URL, ACCESS_TOKEN_URL);
 		oAuth2Template.setUseParametersForClientAuthentication(true);
 		return oAuth2Template;
 	}
